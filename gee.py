@@ -155,7 +155,7 @@ def main():
     parser_cancel=subparsers.add_parser('cancel', help='Cancel Tasks')
     parser_cancel.add_argument('-t','--task_id',help='any portion of gee-task-id')
     parser_cancel.add_argument('-d','--description',help='any portion of gee-task-description')
-    parser_cancel.add_argument('-s','--states',help='commas seperated state names or one of all|opentasks|finished')
+    parser_cancel.add_argument('-s','--states',help='commas seperated state names or one of all|opentasks')
     parser_cancel.set_defaults(func=_cancel) 
     # tasks
     parser_tasks=subparsers.add_parser('tasks', help='Prints summary of recent tasks')
