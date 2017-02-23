@@ -11,7 +11,7 @@ ___
 
 ```bash
 # pip (testpypi)
-pip install -U -i https://testpypi.python.org/pypi  gee_toolbox
+pip install -U -i https://testpypi.python.org/pypi gee_toolbox
 
 # github
 $ git https://github.com/wri/gee_toolbox
