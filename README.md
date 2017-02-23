@@ -32,7 +32,7 @@ positional arguments:
   {status,summary,cancel,tasks,user}
     status              GEE Task Status (consider using gee.summary)
     summary             GEE Task Summary
-    cancel              Cancel Task (consider using gee.status_n)
+    cancel              Cancel Tasks
     tasks               Prints summary of recent tasks
     user                User Info
 

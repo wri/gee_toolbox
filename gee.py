@@ -152,7 +152,7 @@ def main():
     parser_summary.add_argument('-p','--props',help='comma seperated string of properties')
     parser_summary.set_defaults(func=_summary)    
     # cancel
-    parser_cancel=subparsers.add_parser('cancel', help='Cancel Task (consider using gee.status_n)')
+    parser_cancel=subparsers.add_parser('cancel', help='Cancel Tasks')
     parser_cancel.add_argument('-t','--task_id',help='any portion of gee-task-id')
     parser_cancel.add_argument('-d','--description',help='any portion of gee-task-description')
     parser_cancel.add_argument('-s','--states',help='commas seperated state names or one of all|opentasks|finished')
