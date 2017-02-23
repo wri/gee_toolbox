@@ -1,19 +1,29 @@
-#### gee
-_This is a work in progress_
+##### gee_toolbox ( _this is a work in progress_ )
+___
+ 
+`gee_toolbox` is convenience module and command line tool for GEE.  Note if you have earthengine installed you already have access to the [earthengine CLI](https://developers.google.com/earth-engine/command_line]). In most respects the [earthengine CLI](https://developers.google.com/earth-engine/command_line]) is better and more complete.  Use cases for this module/cli are:
 
-A convenience module and command line tool for GEE.
+* Making task management both pretty and easy
+* An `init` method (when used as a module) that use service accounts (when an env var is present)
+* User mangement (which you probably shouldn't use)
 
-### INSTALL
+##### INSTALL
 
 ```bash
-$ git clone https://github.com/wri/gee.git
+# pip (testpypi)
+pip install -U -i https://testpypi.python.org/pypi  gee_toolbox
+
+# github
+$ git https://github.com/wri/gee_toolbox
+$ cd gee_toolbox/
+$ pip install . 
 ```
 
-----------------------------------------------------------
-### COMMAND LINE
+___
+##### COMMAND LINE
 
 ```bash
-$ python gee.py -h
+$ gee -h
 usage: gee.py [-h] {status,summary,cancel,tasks,user} ...
 
 GEE HELPER
@@ -34,7 +44,7 @@ ____
 
 
 ```bash
-$ python gee.py summary -h
+$ gee summary -h
 usage: gee.py summary [-h] [-d DETAILED] [-p PROPS] task_id
 
 positional arguments:
@@ -52,7 +62,7 @@ ____
 
 
 ```bash
-$ python gee.py tasks -h
+$ gee tasks -h
 usage: gee.py tasks [-h] [-n NUM] [-t TASK_ID] [-d DESCRIPTION] [-s STATES]
                     [-p PROPS]
 
@@ -73,7 +83,7 @@ ____
 
 
 ```bash
-$ python gee.py cancel -h
+$ gee cancel -h
 usage: gee.py cancel [-h] [-t TASK_ID] [-d DESCRIPTION] [-s STATES]
 
 optional arguments:
@@ -86,9 +96,9 @@ optional arguments:
                         all|opentasks|finished
 ```
 
-----------------------------------------------------------
-### USERS
-This module contains methods for (the potentially unsafe but convenient practice of) handling multiple GEE accounts on the same computer. For this to work simply create a sub-directories in you `.config/earthengine` for each user containing their crediential file. The system will then create a `current_user.txt` file and `credentials-last` (backup) file. Your `.config/earthengine` directory will look like this:
+___
+##### USERS
+This module contains methods for (the potentially unsafe but convenient practice of) handling multiple GEE accounts on the same computer. For this to work simply create a sub-directories in your `.config/earthengine` for each user containing their crediential file. The system will then create a `current_user.txt` file and `credentials-last` (backup) file. Your `.config/earthengine` directory will look like this:
 
 ```bash
 $ tree <USER_HOME>/.config/earthengine
@@ -106,10 +116,9 @@ $ tree <USER_HOME>/.config/earthengine
 ```
 
 ```bash
-$ python gee.py user -h
+$ gee user -h
 usage: gee.py user [-h] [-n NEW]
 
 optional arguments:
   -n NEW, --new NEW  new username
 ```
-
