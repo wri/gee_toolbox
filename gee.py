@@ -1,15 +1,14 @@
 import os
-import sys
 import argparse
 import ee
-import webbrowser as web
 from datetime import timedelta
-import gee_config as cfg
-
-
 #
-# FIXED CONFIG
+# CONFIG
 #
+USER_ROOT=os.path.expanduser('~')
+EE_CONFIG_PATH='{}/.config/earthengine'.format(USER_ROOT)
+NOISY=True
+STATUS_PROPS=['description','state','id']
 ALL='all'
 OPENTASKS='opentasks'
 FINISHED='finished'
@@ -34,15 +33,15 @@ def init(user=None):
 
 def current_user(state='CURRENT'):
     os.system("echo 'gee.{}_USER:'".format(state))
-    os.system("cat {}/current_user.txt".format(cfg.EE_CONFIG_PATH)) 
+    os.system("cat {}/current_user.txt".format(EE_CONFIG_PATH)) 
 
 
 def switch_user(user_name):
     current_user('PREVIOUS') 
-    os.system("rm {}/credentials-last".format(cfg.EE_CONFIG_PATH))
-    os.system("mv {path}/credentials {path}/credentials-last".format(path=cfg.EE_CONFIG_PATH))
-    os.system("cp {path}/{user}/credentials {path}/credentials".format(path=cfg.EE_CONFIG_PATH,user=user_name))
-    os.system("echo '{}' > {}/current_user.txt".format(user_name,cfg.EE_CONFIG_PATH))
+    os.system("rm {}/credentials-last".format(EE_CONFIG_PATH))
+    os.system("mv {path}/credentials {path}/credentials-last".format(path=EE_CONFIG_PATH))
+    os.system("cp {path}/{user}/credentials {path}/credentials".format(path=EE_CONFIG_PATH,user=user_name))
+    os.system("echo '{}' > {}/current_user.txt".format(user_name,EE_CONFIG_PATH))
     current_user('NEW')
 
 
@@ -128,11 +127,11 @@ def _get_states(states):
 
 
 def _out(trace_info,data):
-    if cfg.NOISY: print "gee.{}: {}".format(trace_info,data)
+    if NOISY: print "gee.{}: {}".format(trace_info,data)
 
 
 def _task_report(task_dict,props):
-    if not props: props=cfg.STATUS_PROPS
+    if not props: props=STATUS_PROPS
     return "  |  ".join(map(lambda prop: str(task_dict.get(prop)),props))
 
 
