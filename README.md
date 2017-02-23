@@ -93,7 +93,7 @@ optional arguments:
                         any portion of gee-task-description
   -s STATES, --states STATES
                         commas seperated state names or one of
-                        all|opentasks|finished
+                        all|opentasks
 ```
 
 ___
