@@ -4,7 +4,7 @@ ___
 `gee_toolbox` is convenience module and command line tool for GEE.  Note if you have earthengine installed you already have access to the [earthengine CLI](https://developers.google.com/earth-engine/command_line]). In most respects the [earthengine CLI](https://developers.google.com/earth-engine/command_line]) is better and more complete.  Use cases for this module/cli are:
 
 * Making task management both pretty and easy
-* An `init` method (when used as a module) that use service accounts (when an env var is present)
+* An `init` method (when used as a module) that uses service accounts (when an ENV var is present)
 * User mangement (which you probably shouldn't use)
 
 ##### INSTALL
@@ -95,6 +95,17 @@ optional arguments:
                         commas seperated state names or one of
                         all|opentasks|finished
 ```
+
+___
+##### SERVICE_ACCOUNT
+
+Simply set a `SERVICE_ACCOUNT` environment variable 
+
+```bash
+$ export SERVICE_ACCOUNT=yourserviceaccount@project_id.iam.gserviceaccount.com
+```
+
+and `gee.init()` will use the account to initialize earthengine.
 
 ___
 ##### USERS
