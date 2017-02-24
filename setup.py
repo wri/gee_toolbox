@@ -2,7 +2,7 @@ from setuptools import setup
 setup(
   name = 'gee_toolbox',
   py_modules = ['gee'],
-  version = '0.0.0.3',
+  version = '0.0.0.4',
   description = 'A convenience module and command line tool for GEE.',
   author = 'Brookie Guzder-Williams',
   author_email = 'bguzder-williams@wri.org',
@@ -11,6 +11,8 @@ setup(
   keywords = ['gee', 'earth engine','gis'],
   classifiers = [],
   install_requires=[
+      'cryptography==1.4',
+      'oauth2client==1.5.2',
       'earthengine-api'
   ],
   entry_points={
