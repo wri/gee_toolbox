@@ -7,6 +7,7 @@ from datetime import timedelta
 #
 USER_ROOT=os.path.expanduser('~')
 EE_CONFIG_PATH='{}/.config/earthengine'.format(USER_ROOT)
+PEM_PATH='{}/.config/secret/privatekey.pem'.format(USER_ROOT)
 NOISY=True
 STATUS_PROPS=['description','state','id']
 ALL='all'
@@ -23,7 +24,7 @@ def init(user=None):
     sa=os.environ.get('SERVICE_ACCOUNT')
     if sa:
         _out('init','SERVICE_ACCOUNT ({})'.format(sa))
-        ee.Initialize(ee.ServiceAccountCredentials(sa, 'privatekey.pem'))
+        ee.Initialize(ee.ServiceAccountCredentials(sa,PEM_PATH))
     else:
         if user: user_str='({})'.format(user)
         else: user_str=''
