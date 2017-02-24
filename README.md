@@ -18,7 +18,6 @@ $ git https://github.com/wri/gee_toolbox
 $ cd gee_toolbox/
 $ pip install . 
 ```
-
 ___
 ##### COMMAND LINE
 
@@ -99,7 +98,14 @@ optional arguments:
 ___
 ##### SERVICE_ACCOUNT
 
-Simply set a `SERVICE_ACCOUNT` environment variable 
+**Important Note: There seem to be problems with recent versions of `oauth2client` and `cryptography`. The current hack is to use older versions**
+
+```bash
+sudo pip install cryptography==1.4
+sudo pip install oauth2client==1.5.2
+```
+
+To use a service account simply set a `SERVICE_ACCOUNT` environment variable 
 
 ```bash
 $ export SERVICE_ACCOUNT=yourserviceaccount@project_id.iam.gserviceaccount.com
