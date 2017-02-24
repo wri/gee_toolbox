@@ -73,6 +73,7 @@ def summary(task_id,detailed=True,props=None):
 
 def cancel(task_id=None,description=None,states=None,opentasks=False):
     if task_id or description or states or opentasks:
+        if not states: states=OPENTASKS
         task_list=get_tasks(description=description,task_id=task_id,states=states,opentasks=opentasks)
         for task_dict in task_list: 
             task_id=task_dict.get('id')
