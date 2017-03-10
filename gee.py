@@ -59,6 +59,7 @@ def summary(task_id,detailed=True,props=None):
         tupdate = task_dict.get('update_timestamp_ms')
         tstart = task_dict.get('start_timestamp_ms')
         tcreate = task_dict.get('creation_timestamp_ms')
+        url = task_dict.get('output_url')
         if tupdate:
             if tstart: run_time = timedelta(milliseconds=tupdate-tstart)
             else: run_time = "NOT RUNNING"
@@ -67,6 +68,7 @@ def summary(task_id,detailed=True,props=None):
         else:
             run_time = "NO DATA"
             total_time = "NO DATA"
+        if url: print "\toutput_url: {}".format(url[0])
         print "\trun_time: {}".format(run_time)
         print "\ttotal_time: {}".format(total_time)
 
