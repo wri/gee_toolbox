@@ -1,4 +1,5 @@
 import os
+import subprocess
 import argparse
 import ee
 from datetime import timedelta
@@ -92,6 +93,63 @@ def tasks(n=25,task_id=None,description=None,states=None,opentasks=False,props=N
         if print_tasks: print task_report
         task_reports.append(task_report)
     if return_list: return task_reports
+
+
+
+#
+# Asset Manager
+#
+def asset_list(path,full_path=False):
+    project_root=os.environ.get('EE_PROJECT_ROOT')
+    if (not full_path) and project_root: 
+        path='{}/{}'.format(project_root,path)
+    response=asset_cmd('ls',[path])
+    if response: 
+        return response.split('\n')
+    else:
+        return False
+
+
+def asset_mv(from_path,to_path,full_path=False):
+    project_root=os.environ.get('EE_PROJECT_ROOT')
+    if (not full_path) and project_root: 
+        from_path='{}/{}'.format(project_root,from_path)
+        to_path='{}/{}'.format(project_root,to_path)
+    response=asset_cmd('mv',[from_path,to_path])
+    if response: 
+        _out('asset_mv',response)
+        return False
+    else:
+        return True
+
+
+def asset_cp(from_path,to_path,full_path=False):
+    project_root=os.environ.get('EE_PROJECT_ROOT')
+    if (not full_path) and project_root: 
+        from_path='{}/{}'.format(project_root,from_path)
+        to_path='{}/{}'.format(project_root,to_path)
+    response=asset_cmd('cp',[from_path,to_path])
+    if response: 
+        _out('asset_cp',response)
+        return False
+    else:
+        return True
+
+
+def asset_cmd(cmd,args_list,grep=None):
+    if grep: args_list=args_list+['|','grep {}'.format(grep)]
+    (out,err)=subprocess.Popen(['earthengine',cmd]+args_list,stdout=subprocess.PIPE).communicate()
+    return (err or out).strip()
+
+
+def asset_exists(path,full_path=False):
+    project_root=os.environ.get('EE_PROJECT_ROOT')
+    if (not full_path) and project_root:
+        path='{}/{}'.format(project_root,path)
+    root="/".join(path.split("/")[:-1])
+    assets=asset_list(root,True)
+    if assets: return path in assets
+    else: return False
 
 
 #
