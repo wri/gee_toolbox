@@ -1,19 +1,21 @@
-##### gee_toolbox ( _this is a work in progress_ )
+###### gee_toolbox ( _this is a work in progress_ )
 ___
  
-`gee_toolbox` is convenience module and command line tool for GEE.  Note if you have earthengine installed you already have access to the [earthengine CLI](https://developers.google.com/earth-engine/command_line]). In most respects the [earthengine CLI](https://developers.google.com/earth-engine/command_line]) is better and more complete.  Use cases for this module/cli are:
+`gee_toolbox` is convenience module and command line tool for GEE.  Note if you have earthengine installed you already have access to the [earthengine CLI](https://developers.google.com/earth-engine/command_line]). In most respects the [earthengine CLI](https://developers.google.com/earth-engine/command_line]) is better and more complete.  
 
-_as a cli_
+Use cases for this CLI/Module are:
 
-* Making task management both pretty and easy
-* User mangement (which you probably shouldn't use)
+###### CLI
 
-_as a python module_
+* [Task management](#task-cli): easily list, cancel, summarize tasks
+* [User management](#user-management): manage multiple users on one machine. (note: you probably shouldn't use this)
 
-* An `init` method that uses service accounts (when an ENV var is present)
-* A wrapper for the `earthengine-cli` that provides
+###### PYTHON MODULE
+
+* [gee.init](#gee-init): initialization that automatically uses service accounts (when an ENV var is present)
+* [Asset management](#asset-management): a python wrapper for the `earthengine-cli` that provides
   * `asset_exists()`!!!
-  * `asset_cp/mv/list` 
+  * `asset_cp/mv/list()` 
 
 
 ##### INSTALL
@@ -28,6 +30,8 @@ $ cd gee_toolbox/
 $ pip install . 
 ```
 ___
+
+<a name='asset-management'></a>
 ##### ASSET MANAGEMENT 
 
 These methods 
@@ -45,6 +49,8 @@ do exactly what you think they do. If `full_path=False` and the environment vari
 `gee.asset_cmd` is a more general cli wrapper that is used internally for the above methods but could be used to implement other cli methods. As an example, `gee.asset_cmd('cp',[from_path,to_path])` is the same as `earthengine cp from_path to_path` (Note however for copy you would just use `gee.asset_cp`).
 
 ___
+
+<a name='task-cli'></a>
 ##### COMMAND LINE
 
 ```bash
@@ -122,6 +128,8 @@ optional arguments:
 ```
 
 ___
+
+<a name='gee-init'></a>
 ##### SERVICE_ACCOUNT
 
 **Important Note: There seem to be problems with recent versions of `oauth2client` and `cryptography`. The current hack is to use older versions**
@@ -140,6 +148,8 @@ $ export SERVICE_ACCOUNT=yourserviceaccount@project_id.iam.gserviceaccount.com
 and `gee.init()` will use the account to initialize earthengine.
 
 ___
+
+<a name='user-management'></a>
 ##### USERS
 This module contains methods for (the potentially unsafe but convenient practice of) handling multiple GEE accounts on the same computer. For this to work simply create a sub-directories in your `.config/earthengine` for each user containing their crediential file. The system will then create a `current_user.txt` file and `credentials-last` (backup) file. Your `.config/earthengine` directory will look like this:
 
@@ -150,7 +160,6 @@ $ tree <USER_HOME>/.config/earthengine
 │   └── credentials
 ├── username2
 │   └── credentials
-├── client_secrets.json
 ├── credentials
 ├── credentials-last
 ├── current_user.txt
