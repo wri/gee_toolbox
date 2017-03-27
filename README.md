@@ -3,9 +3,18 @@ ___
  
 `gee_toolbox` is convenience module and command line tool for GEE.  Note if you have earthengine installed you already have access to the [earthengine CLI](https://developers.google.com/earth-engine/command_line]). In most respects the [earthengine CLI](https://developers.google.com/earth-engine/command_line]) is better and more complete.  Use cases for this module/cli are:
 
+_as a cli_
+
 * Making task management both pretty and easy
-* An `init` method (when used as a module) that uses service accounts (when an ENV var is present)
 * User mangement (which you probably shouldn't use)
+
+_as a python module_
+
+* An `init` method that uses service accounts (when an ENV var is present)
+* A wrapper for the `earthengine-cli` that provides
+  * `asset_exists()`!!!
+  * `asset_cp/mv/list` 
+
 
 ##### INSTALL
 
@@ -18,6 +27,23 @@ $ git https://github.com/wri/gee_toolbox
 $ cd gee_toolbox/
 $ pip install . 
 ```
+___
+##### ASSET MANAGEMENT 
+
+These methods 
+
+```python
+def asset_exists(path,full_path=False):
+def asset_mv(from_path,to_path,full_path=False):
+def asset_cp(from_path,to_path,full_path=False):
+def asset_list(path,full_path=False):
+```
+
+do exactly what you think they do. If `full_path=False` and the environment variable `EE_PROJECT_ROOT` exists, it will prefix the file paths with `$EE_PROJECT_ROOT/`.
+
+
+`gee.asset_cmd` is a more general cli wrapper that is used internally for the above methods but could be used to implement other cli methods. As an example, `gee.asset_cmd('cp',[from_path,to_path])` is the same as `earthengine cp from_path to_path` (Note however for copy you would just use `gee.asset_cp`).
+
 ___
 ##### COMMAND LINE
 
