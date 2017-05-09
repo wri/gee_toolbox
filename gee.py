@@ -40,10 +40,17 @@ def current_user(state='CURRENT'):
 
 def switch_user(user_name):
     current_user('PREVIOUS') 
-    os.system("rm {}/credentials-last".format(EE_CONFIG_PATH))
-    os.system("mv {path}/credentials {path}/credentials-last".format(path=EE_CONFIG_PATH))
-    os.system("cp {path}/{user}/credentials {path}/credentials".format(path=EE_CONFIG_PATH,user=user_name))
-    os.system("echo '{}' > {}/current_user.txt".format(user_name,EE_CONFIG_PATH))
+    os.system(
+        "rm {}/credentials-last".format(EE_CONFIG_PATH))
+    os.system(
+        "mv {path}/credentials {path}/credentials-last".format(
+            path=EE_CONFIG_PATH))
+    os.system(
+        "cp {path}/{user}/credentials {path}/credentials".format(
+            path=EE_CONFIG_PATH,
+            user=user_name))
+    os.system(
+        "echo '{}' > {}/current_user.txt".format(user_name,EE_CONFIG_PATH))
     current_user('NEW')
 
 
@@ -77,7 +84,11 @@ def summary(task_id,detailed=True,props=None):
 def cancel(task_id=None,description=None,states=None,opentasks=False):
     if task_id or description or states or opentasks:
         if not states: states=OPENTASKS
-        task_list=get_tasks(description=description,task_id=task_id,states=states,opentasks=opentasks)
+        task_list=get_tasks(
+            description=description,
+            task_id=task_id,
+            states=states,
+            opentasks=opentasks)
         for task_dict in task_list: 
             task_id=task_dict.get('id')
             ee.data.cancelTask(task_id)
@@ -85,8 +96,13 @@ def cancel(task_id=None,description=None,states=None,opentasks=False):
     else: _out('cancel','EMPTY REQUEST')
 
 
-def tasks(n=25,task_id=None,description=None,states=None,opentasks=False,props=None,return_list=False,print_tasks=True):
-    task_list=get_tasks(description=description,task_id=task_id,states=states,opentasks=opentasks)
+def tasks(n=25,task_id=None,description=None,states=None,
+        opentasks=False,props=None,return_list=False,print_tasks=True):
+    task_list=get_tasks(
+        description=description,
+        task_id=task_id,
+        states=states,
+        opentasks=opentasks)
     task_reports=[]
     for task_dict in task_list[:n]: 
         task_report=_task_report(task_dict,props)
@@ -138,7 +154,9 @@ def asset_cp(from_path,to_path,full_path=False):
 
 def asset_cmd(cmd,args_list,grep=None):
     if grep: args_list=args_list+['|','grep {}'.format(grep)]
-    (out,err)=subprocess.Popen(['earthengine',cmd]+args_list,stdout=subprocess.PIPE).communicate()
+    (out,err)=subprocess.Popen(
+        ['earthengine',cmd]+args_list,
+        stdout=subprocess.PIPE).communicate()
     return (err or out).strip()
 
 
@@ -203,28 +221,46 @@ def main():
     parser=argparse.ArgumentParser(description='GEE HELPER')
     subparsers=parser.add_subparsers()
     # status
-    parser_status=subparsers.add_parser('status', help='GEE Task Status (consider using gee.summary)')
+    parser_status=subparsers.add_parser(
+        'status', help='GEE Task Status (consider using gee.summary)')
     parser_status.add_argument('task_id',help='gee-task-id')
     parser_status.set_defaults(func=_status)    
     # summary
-    parser_summary=subparsers.add_parser('summary', help='GEE Task Summary')
+    parser_summary=subparsers.add_parser(
+        'summary', help='GEE Task Summary')
     parser_summary.add_argument('task_id',help='gee-task-id')
-    parser_summary.add_argument('-d','--detailed',default='True',help='include details')
-    parser_summary.add_argument('-p','--props',help='comma seperated string of properties')
+    parser_summary.add_argument(
+        '-d','--detailed',default='True',help='include details')
+    parser_summary.add_argument(
+        '-p','--props',help='comma seperated string of properties')
     parser_summary.set_defaults(func=_summary)    
     # cancel
-    parser_cancel=subparsers.add_parser('cancel', help='Cancel Tasks')
-    parser_cancel.add_argument('-t','--task_id',help='any portion of gee-task-id')
-    parser_cancel.add_argument('-d','--description',help='any portion of gee-task-description')
-    parser_cancel.add_argument('-s','--states',help='commas seperated state names or one of all|opentasks')
+    parser_cancel=subparsers.add_parser(
+        'cancel', help='Cancel Tasks')
+    parser_cancel.add_argument(
+        '-t','--task_id',help='any portion of gee-task-id')
+    parser_cancel.add_argument(
+        '-d','--description',help='any portion of gee-task-description')
+    parser_cancel.add_argument(
+        '-s','--states',help='commas seperated state names or one of all|opentasks')
     parser_cancel.set_defaults(func=_cancel) 
     # tasks
     parser_tasks=subparsers.add_parser('tasks', help='Prints summary of recent tasks')
-    parser_tasks.add_argument('-n','--num',default='50',help='number of tasks to print')
-    parser_tasks.add_argument('-t','--task_id',help='any portion of gee-task-id')
-    parser_tasks.add_argument('-d','--description',help='any portion of gee-task-description')
-    parser_tasks.add_argument('-s','--states',help='commas seperated state names or one of all|opentasks|finished')
-    parser_tasks.add_argument('-p','--props',help='commas seperated property names to display')
+    parser_tasks.add_argument(
+        '-n','--num',default='50',
+        help='number of tasks to print')
+    parser_tasks.add_argument(
+        '-t','--task_id',
+        help='any portion of gee-task-id')
+    parser_tasks.add_argument(
+        '-d','--description',
+        help='any portion of gee-task-description')
+    parser_tasks.add_argument(
+        '-s','--states',
+        help='commas seperated state names or one of all|opentasks|finished')
+    parser_tasks.add_argument(
+        '-p','--props',
+        help='commas seperated property names to display')
     parser_tasks.set_defaults(func=_tasks)
     # user
     parser_user=subparsers.add_parser('user', help='User Info')
