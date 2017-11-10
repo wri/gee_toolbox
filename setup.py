@@ -11,8 +11,6 @@ setup(
   keywords = ['gee', 'earth engine','gis'],
   classifiers = [],
   install_requires=[
-      'cryptography<=1.4',
-      'oauth2client<=1.5.2',
       'earthengine-api'
   ],
   entry_points={
