@@ -132,13 +132,6 @@ ___
 <a name='gee-init'></a>
 ##### SERVICE_ACCOUNT
 
-**Important Note: There seem to be problems with recent versions of `oauth2client` and `cryptography`. The current hack is to use older versions**
-
-```bash
-sudo pip install cryptography==1.4
-sudo pip install oauth2client==1.5.2
-```
-
 To use a service account simply set a `SERVICE_ACCOUNT` environment variable 
 
 ```bash

@@ -2,7 +2,7 @@ from setuptools import setup
 setup(
   name = 'gee_toolbox',
   py_modules = ['gee'],
-  version = '0.0.1.0',
+  version = '0.0.1.1',
   description = 'A convenience module and command line tool for GEE.',
   author = 'Brookie Guzder-Williams',
   author_email = 'bguzder-williams@wri.org',
