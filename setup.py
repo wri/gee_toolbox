@@ -11,7 +11,8 @@ setup(
   keywords = ['gee', 'earth engine','gis'],
   classifiers = [],
   install_requires=[
-      'earthengine-api'
+      'earthengine-api',
+      'future'
   ],
   entry_points={
       'console_scripts': [
