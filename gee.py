@@ -1,4 +1,5 @@
 from __future__ import print_function
+from builtins import str
 import os
 import subprocess
 import argparse
@@ -191,11 +192,11 @@ def get_tasks(task_id=None, description=None, states=None, opentasks=False):
     tasks = ee.data.getTaskList()
     if states:
         states = _get_states(states)
-        tasks = filter(lambda s: s['state'] in states, tasks)
+        tasks = [s for s in tasks if s['state'] in states]
     if task_id:
-        tasks = filter(lambda s: task_id in s['id'], tasks)
+        tasks = [s for s in tasks if task_id in s['id']]
     if description:
-        tasks = filter(lambda s: description in s['description'], tasks)
+        tasks = [s for s in tasks if description in s['description']]
     return tasks
 
 
@@ -220,7 +221,7 @@ def _out(trace_info, data):
 
 def _task_report(task_dict, props):
     if not props: props = STATUS_PROPS
-    return "  |  ".join(map(lambda prop: str(task_dict.get(prop)), props))
+    return "  |  ".join([str(task_dict.get(prop)) for prop in props])
 
 
 #
